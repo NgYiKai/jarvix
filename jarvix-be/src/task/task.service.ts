@@ -2,7 +2,6 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { PrismaService } from '../prisma.service';
-import { Prisma, Task } from '@prisma/client';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 
@@ -14,7 +13,7 @@ export class TaskService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) { }
   
-  async create(createTaskDto: CreateTaskDto): Promise<Task> {
+  async create(createTaskDto: CreateTaskDto) {
     const task = await this.prisma.task.create({
       data:createTaskDto,
     });
@@ -24,13 +23,13 @@ export class TaskService {
     return task
   }
 
-  async findAll(): Promise<Task[]> {
+  async findAll() {
     let task = await this.prisma.task.findMany();
     
     return task;
   }
 
-  async findOne(id: number): Promise<Task> {
+  async findOne(id: number) {
     const task = await this.prisma.task.findUnique({
       where: { id },
     });
@@ -40,7 +39,7 @@ export class TaskService {
     return task;
   }
 
-  async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
     try {
       const task = await this.prisma.task.update({
         where: { id },
@@ -57,7 +56,7 @@ export class TaskService {
 
   }
 
-  async remove(id: number): Promise<Task> {
+  async remove(id: number) {
     try {
       const task = await this.prisma.task.delete({
         where: { id },
