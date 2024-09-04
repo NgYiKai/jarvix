@@ -16,6 +16,8 @@ services:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/nestdb
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      RATE_LIMIT: 10
+      RATE_LIMIT_TTL: 1000
     env_file:
       - ./jarvix-be/.env
     restart: always
@@ -40,5 +42,20 @@ services:
       - postgres-data:/var/lib/postgresql/data
     restart: always
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    ports:
+      - '8080:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_WTF_CSRF_ENABLED: 'False'
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'False'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    restart: always
+
 volumes:
   postgres-data:
+  pgadmin-data:

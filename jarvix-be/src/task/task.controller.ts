@@ -8,27 +8,55 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.taskService.create(createTaskDto);
+  async create(@Body() createTaskDto: CreateTaskDto) {
+
+    let data = await this.taskService.create(createTaskDto);
+    let response = {
+      msg: 'Sucessfully created task',
+      data: data
+    }
+    return response
   }
 
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  async findAll() {
+    let data = await this.taskService.findAll();
+    let response = {
+      msg: 'Sucessfully found tasks',
+      data: data
+    }
+    return response
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.taskService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+
+    let data = await this.taskService.findOne(+id);
+    let response = {
+      msg: 'Sucessfully found task',
+      data: data
+    }
+    return response
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.taskService.update(+id, updateTaskDto);
+  async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+
+    let data = await this.taskService.update(+id, updateTaskDto);
+    let response = {
+      msg: 'Sucessfully updated task',
+      data: data
+    }
+    return response
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.taskService.remove(+id);
+  async remove(@Param('id') id: string) {
+    let data = await this.taskService.remove(+id);
+    let response = {
+      msg: 'Sucessfully deleted task',
+      data: data
+    }
+    return response
   }
 }
