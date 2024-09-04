@@ -41,7 +41,8 @@ This is a backend task management API built with NestJS, PostgreSQL, and Redis. 
    npm install
 
 4. **Set Up the Database**
-   Create a PostgreSQL database named nestdb.
+
+   Create a PostgreSQL database named nestdb.Or put whatever name you like , just make sure you use the correct database connection string later when setting up .env
 
 5. **Set Up the Redis**
   
@@ -49,11 +50,14 @@ This is a backend task management API built with NestJS, PostgreSQL, and Redis. 
 
    Update your .env file with the correct database connection string ,redis host and port.
 
-8. Run migration
+7. **Prepare the database**
+   Generate prisma client and run migration
+
    ```
+   npx prisma generate
    npx prisma migrate deploy
 
-9. **Start the Application**
+8. **Start the Application**
    ```
    npm run dev
    ```
@@ -115,3 +119,8 @@ The endpoint allows you to delete a specific task
 
 
 ## Running tests
+
+Use the command to run unit test
+```
+npm run test
+```
